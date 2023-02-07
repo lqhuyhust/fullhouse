@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAttributePhoneNumberIntoUsersTable extends Migration
+class AddColumnPhoneNumberToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddAttributePhoneNumberIntoUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone_number', 11)->unique();
-            $table->boolean('is_admin')->nullable(false)->default(false);
+            $table->string('phone_number', 11);
         });
     }
 
@@ -28,7 +27,6 @@ class AddAttributePhoneNumberIntoUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('phone_number');
-            $table->dropColumn('is_admin');
         });
     }
 }
