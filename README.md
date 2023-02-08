@@ -1,5 +1,5 @@
 <h1>Fullhouse project</h1>
-- Fullhouse is a web app which helps people find an apartment to rent. 
+Fullhouse is a web app which helps people find an apartment to rent. 
 
 - There is 3 role for users: admin, member,guest
 
@@ -10,6 +10,11 @@
 - PHP 7.4
 - MySQL 8.0.32
 - Apache 2
+
+## Packages:
+- DataTables v1.10.24
+- JSZip v3.6.0
+- pdfmake v0.1.70
 
 ## Installation
 - Pull source code from repo
