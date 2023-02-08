@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+Route::get('login', [LoginController::class, 'login'])->name('login');
+Route::post('login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
