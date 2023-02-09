@@ -36,7 +36,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::post('/create', [UserController::class, 'store'])->name('create.store');
         Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
         Route::put('/edit/{id}', [UserController::class, 'update'])->name('edit.update');
-        Route::get('/view/{id}', [UserController::class, 'view'])->name('view');
+        Route::get('/change-password/{id}', [UserController::class, 'changePassword'])->name('change_password');
+        Route::put('/change-password/{id}', [UserController::class, 'savePassword'])->name('change_password.save');
         Route::delete('/delete', [UserController::class, 'delete'])->name('delete');
     });
 });
