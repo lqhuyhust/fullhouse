@@ -3,7 +3,7 @@
     @php
 
     @endphp
-    <a href="index3.html" class="brand-link">
+    <a href="{{route('admin.apartments.index')}}" class="brand-link">
         <!-- <img src="{{asset(config('site-settings.site_logo'))}}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8"> -->
         <p class="brand-text font-weight-light text-center">{{config('site-settings.site_title')}}</p>
@@ -16,10 +16,9 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column brand-link">
                 <li class="nav-item">
-                    <a href="{{route('admin.apartments.index')}}" class="nav-link">
+                    <a href="{{route('admin.users.edit', Auth::user()->id)}}" class="nav-link">
                         <p>
                             Current user: {{ Auth::user()->name }}
-                            <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                 </li>

@@ -29,6 +29,14 @@ class ApartmentController extends Controller
     public function store(ApartmentRequest $request)
     {
         $data = $request->except('_token');
+        if(isset($data['images']))
+        {
+            $path = $this->_upload($request);
+            if ($path) {
+                $data['images'] = $path;
+            }
+        } 
+
         $data = array_filter($data, 'strlen');
         Apartment::create($data);
         return redirect(route('admin.apartments.index'))->with('success', __('Create Apartment successfully!'));
@@ -49,6 +57,17 @@ class ApartmentController extends Controller
     public function update(ApartmentRequest $request, $id)
     {
         $data = $request->except('_method', '_token');
+        if(isset($data['images']))
+        {
+            $path = $this->_upload($request);
+            if ($path) {
+                $data['images'] = $path;
+            }
+        } else {
+            $data['images'] = $data['old_images'];
+        }
+
+        unset($data['old_images']);
         $data = array_filter($data, 'strlen');
         Apartment::where('id', $id)->update($data);
         return redirect(route('admin.apartments.index'))->with('success', __('Update Apartment successfully!'));
@@ -77,5 +96,18 @@ class ApartmentController extends Controller
         {
             abort(404);
         }
+    }
+
+    private function _upload($request)
+    {
+        if ($request->hasFile('images')) {
+            $photo = $request->file('images');
+            $path = $photo->storeAs(
+                'uploads',
+                time().'.'.$photo->getClientOriginalName()
+            );
+            return $path;
+        }
+        return false;
     }
 }

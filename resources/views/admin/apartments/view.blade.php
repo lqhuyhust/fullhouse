@@ -62,7 +62,10 @@
                         </div>
                         <div class="form-group">
                             <div><strong>Images</strong></div>
-                            <div>{{$apartment->images}}</div>
+                            <div>
+                                <img id="preview-image-before-upload" src="{{asset($apartment->images)}}"
+                                    alt="preview image" style="max-height: 500px;">
+                            </div>
                         </div>
                     </div>
                     <!-- /.card-body -->

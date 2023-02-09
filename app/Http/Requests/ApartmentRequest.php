@@ -31,8 +31,8 @@ class ApartmentRequest extends FormRequest
             'deposit' => 'required|integer|min:0',
             'owner_name' => 'required|max:50',
             'owner_phone_number' => 'required|max:11',
-            'owner_email' => 'required|max:100',
-            'images' => 'max:1000',
+            'owner_email' => 'required|email|max:100',
+            'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

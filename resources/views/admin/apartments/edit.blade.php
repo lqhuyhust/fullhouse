@@ -107,12 +107,17 @@
                             </div>
                             <div class="form-group">
                                 <label for="images">Images</label>
-                                <input type="text" id="inputImage" name="images"
-                                    class="form-control @error('images') is-invalid @enderror"
-                                    value="{{old('images', $apartment->images ?? '')}}">
+                                <input type="hidden" name="old_images" value="{{$apartment->images}}">
+                                <input type="file" id="images" name="images" style="display: none;" />
+                                <input type="button" class="form-control @error('images') is-invalid @enderror btn-primary" value="Choose a picture" 
+                                    onclick="document.getElementById('images').click();" style="width:20%;" />
                                 @error('images')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <div class="photo-preview mt-3">
+                                    <img id="preview-image-before-upload" src="{{asset($apartment->images)}}"
+                                        alt="preview image" style="max-height: 500px;">
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -130,4 +135,18 @@
     </div>
 </section>
 <!-- /.content -->
+@stop
+@section('js')
+<script>
+    $(document).ready(function (e) {
+        $('#images').change(function(){
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#preview-image-before-upload').css('display', 'block');
+                $('#preview-image-before-upload').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        });
+    });
+</script>
 @stop
