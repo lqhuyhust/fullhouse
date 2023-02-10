@@ -90,7 +90,7 @@ class UserController extends Controller
             return redirect()->back()->withErrors(['new_password' => __('New Password cannot be same as your current password.')]);
         }
 
-        $user->password = bcrypt($newPassword);
+        $user->setPasswordAttribute($newPassword);
         $user->save();
 
         return redirect(route('admin.users.index'))->with('success', __('Change user password successfully!'));

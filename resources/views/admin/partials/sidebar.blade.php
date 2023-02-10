@@ -51,6 +51,9 @@
                     </a>
                 </li>
             </ul>
+            <div class="text-center mt-3">
+                <a href="{{route('index')}}" class="btn btn-primary text-white">Go to Fullhouse site</a>
+            </div>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
