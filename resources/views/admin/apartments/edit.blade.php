@@ -122,7 +122,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <a href="{{route('admin.apartments.index')}}" class="btn btn-secondary">Cancel</a>
-                                    <input type="submit" value="Create New apartment" class="btn btn-success float-right">
+                                    <input type="submit" value="Save" class="btn btn-success float-right">
                                 </div>
                             </div>
                         </form>
