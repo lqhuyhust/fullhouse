@@ -22,16 +22,16 @@
 </head>
 
 <body>
-    <!-- Navigation-->
-    @include('web.partials.header')
-    <!-- Page Header-->
-    <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+    <header class="masthead" style="background-image: url('assets/img/banner-1bedroom-garden-view.jpg')">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
                         <h1>@yield('main_heading')</h1>
                         <span class="subheading">@yield('sub_heading')</span>
+                        <div class="mt-4">
+                            @yield('button')
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,6 +40,9 @@
     @yield('content')
     <!-- Footer-->
     @include('web.partials.footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->

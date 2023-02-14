@@ -15,6 +15,10 @@
 </style>
 @endsection
 
+@section('button')
+<a href="{{route('index')}}" class="btn btn-light">Go To Homepage</a>
+@endsection
+
 @section('content')
 <!-- Main Content-->
 <div class="container px-4 px-lg-5">
@@ -28,11 +32,11 @@
             @endif
             <p>{{$apartment->description}}</p>
             <img id="preview-image-before-upload" src="{{asset($apartment->images)}}"
-                alt="{{$apartment->images}}" style="max-width: 100%;">
+                alt="{{$apartment->images}}" style="width: 100%;">
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <span class="post-meta">Price: 
-                        <strong>{{$apartment->price}}</strong>
+                        <strong>{{$apartment->price}} VND</strong>
                     </span>
                 </div>
                 <div class="col-12 col-lg-6">
@@ -42,7 +46,7 @@
                 </div>
                 <div class="col-12 col-lg-6">
                     <span class="post-meta">Deposit: 
-                        <strong>{{$apartment->deposit}}</strong>
+                        <strong>{{$apartment->deposit}} VND</strong>
                     </span>
                 </div>
                 <div class="col-12 col-lg-6">
