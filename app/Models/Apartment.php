@@ -18,5 +18,7 @@ class Apartment extends Model
         'owner_phone_number',
         'owner_email',
         'images',
+        'status',
+        'area',
     ];
 }

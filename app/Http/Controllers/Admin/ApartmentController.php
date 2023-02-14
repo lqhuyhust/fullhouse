@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApartmentRequest;
 use App\Models\Apartment;
+use App\Models\Status;
 
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class ApartmentController extends Controller
 
     public function index(Request $request)
     {
-        $apartments = Apartment::all();
+        $apartments = Apartment::paginate(config('site-settings.admin_paginate'));
         return view('admin.apartments.index', compact('apartments'));
     }
 
@@ -28,14 +29,24 @@ class ApartmentController extends Controller
 
     public function store(ApartmentRequest $request)
     {
+        $validated = $request->validate(
+            [
+                'images' => 'required',
+            ],
+            [
+                'required' => 'You need upload description image for the apartment.',
+            ]
+        );
         $data = $request->except('_token');
-        if(isset($data['images']))
+        $path = $this->_upload($request);
+        if($path)
         {
-            $path = $this->_upload($request);
-            if ($path) {
-                $data['images'] = $path;
-            }
-        } 
+            $data['images'] = $path;
+        } else {
+            return redirect()->back()->withErrors([
+                'images' => 'You need upload description image',
+            ]);
+        }
 
         $data = array_filter($data, 'strlen');
         Apartment::create($data);
@@ -45,9 +56,10 @@ class ApartmentController extends Controller
     public function edit(Request $request, $id)
     {
         $apartment = Apartment::find($id);
+        $statuses = Status::all();
         if ($apartment)
         {
-            return view('admin.apartments.edit', compact('apartment'));
+            return view('admin.apartments.edit', compact('apartment', 'statuses'));
         } else
         {
             abort(404);

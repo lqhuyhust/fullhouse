@@ -16,12 +16,10 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('assets/css/adminlte.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
-        rel="stylesheet">
 
     @yield('css')
 </head>

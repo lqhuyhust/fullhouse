@@ -9,6 +9,14 @@
 <!-- Bootstrap core CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>
+    .dataTables_info {
+        display: none !important;
+    }
+    .dataTables_paginate {
+        display: none !important;
+    }
+</style>
 @stop
 
 @section('content')
@@ -91,6 +99,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-end mb-4">
+                            {{$users->links('vendor.pagination.bootstrap-4')}}
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>

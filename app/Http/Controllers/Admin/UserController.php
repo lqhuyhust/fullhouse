@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::all();
+        $users = User::paginate(config('site-settings.admin_paginate'));
         return view('admin.users.index', compact('users'));
     }
 

@@ -50,6 +50,15 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                                <label for="inputArea">Area</label>
+                                <input type="text" id="inputArea" name="area"
+                                    class="form-control @error('area') is-invalid @enderror"
+                                    value="{{old('area', $apartment->area ?? '')}}">
+                                @error('area')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        <div class="form-group">
                             <label for="inputDescription">Description</label>
                             <textarea id="inputDescription" name="description"
                                 class="form-control @error('description') is-invalid @enderror"
