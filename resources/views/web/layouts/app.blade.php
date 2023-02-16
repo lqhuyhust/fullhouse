@@ -27,7 +27,8 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
-                        <h1>@yield('main_heading')</h1>
+                        <h1>@yield('home_heading')</h1>
+                        <h2>@yield('post_heading')</h2>
                         <span class="subheading">@yield('sub_heading')</span>
                         <div class="mt-4">
                             @yield('button')

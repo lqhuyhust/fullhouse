@@ -1,7 +1,7 @@
 @extends('web.layouts.app')
 
 @section('title', 'Fullhouse - House for everyone!')
-@section('main_heading', 'Fullhouse')
+@section('home_heading', 'Fullhouse')
 @section('sub_heading', 'House for everyone!')
 
 @section('button')
@@ -16,11 +16,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group mt-3 text-start">
-                        <label for="keyword" class="text-primary fw-bolder">Keyword</label>
+                        <h5 class="text-secondary fw-bolder">Keyword</h5>
                         <input class="form-control" id="keyword" name="keyword" type="text" placeholder="Keyword">
                     </div>
                     <div class="form-group mt-3 text-start">
-                        <label for="price" class="text-primary fw-bolder">Price</label>
+                        <h5 class="text-secondary fw-bolder">Price</h5>
                         <select name="price" id="price" class="form-control">
                             <option value="0">Choose price range</option>
                             <option value="1">< 5.000.000 VND</option>
@@ -30,7 +30,7 @@
                         </select>
                     </div>
                     <div class="form-group mt-3 text-start">
-                        <label for="area" class="text-primary fw-bolder">Area</label>
+                        <h5 class="text-secondary fw-bolder">Area</h5>
                         <select name="area" id="area" class="form-control">
                             <option value="0">Choose area range</option>
                             <option value="1">< 30 m2</option>
@@ -64,6 +64,16 @@
                     <h3 class="post-subtitle">{{$apartment->description}}</h3>
                 </a>
                 <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <span class="post-meta">Address: 
+                            <strong>{{$apartment->address}}</strong>
+                        </span>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <span class="post-meta">Area: 
+                            <strong>{{$apartment->area}} m2</strong>
+                        </span>
+                    </div>
                     <div class="col-12 col-lg-6">
                         <span class="post-meta">Price: 
                             <strong>{{$apartment->price}} VND</strong>

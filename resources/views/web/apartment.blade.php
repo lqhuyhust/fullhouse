@@ -1,7 +1,7 @@
 @extends('web.layouts.app')
 
 @section('title', 'Fullhouse - House for everyone!')
-@section('main_heading', $apartment->title)
+@section('post_heading', $apartment->title)
 
 @section('css')
 <style>
@@ -16,7 +16,7 @@
 @endsection
 
 @section('button')
-<a href="{{route('index')}}" class="btn btn-light">Go To Homepage</a>
+<a href="{{route('index')}}" class="btn btn-light">Back To Homepage</a>
 @endsection
 
 @section('content')
@@ -33,7 +33,17 @@
             <p>{{$apartment->description}}</p>
             <img id="preview-image-before-upload" src="{{asset($apartment->images)}}"
                 alt="{{$apartment->images}}" style="width: 100%;">
-            <div class="row">
+            <div class="row mt-4 mb-4">
+                <div class="col-12 col-lg-6">
+                    <span class="post-meta">Address: 
+                        <strong>{{$apartment->address}}</strong>
+                    </span>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <span class="post-meta">Area: 
+                        <strong>{{$apartment->area}} m2</strong>
+                    </span>
+                </div>
                 <div class="col-12 col-lg-6">
                     <span class="post-meta">Price: 
                         <strong>{{$apartment->price}} VND</strong>
@@ -55,7 +65,11 @@
                     </span>
                 </div>
             </div>
-            <a href="{{route('payment', $apartment->id)}}" class="btn btn-success">Deposit Payment</a>
+            @if ($apartment->status == 1)
+            <a href="{{route('payment', $apartment->id)}}" class="btn btn-primary mb-4">Deposit Payment</a>
+            @else
+            <button disabled="disabled" class="btn btn-danger mb-4">Apartment is deposited</button>
+            @endif
         </div>
     </div>
 </div>

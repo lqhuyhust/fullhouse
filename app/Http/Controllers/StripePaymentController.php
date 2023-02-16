@@ -39,7 +39,11 @@ class StripePaymentController extends Controller
             'success_url' => route('index'),
             'cancel_url' => route('index'),
         ]);
-
+        
+        $apartment = Apartment::find($id);
+        $apartment->status = 2;
+        $apartment->save();
+        
         return redirect(route('apartment', $id))->with('success', __('Payment successfully!'));
     }
 }
