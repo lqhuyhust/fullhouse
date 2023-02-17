@@ -1,9 +1,11 @@
 <h1>Fullhouse project</h1>
 Fullhouse is a web app which helps people find an apartment to rent. 
 
-- There is 3 role for users: admin, member,guest
+- There is 3 role for users: admin, mod ,guest
 
-- Admin create posts which include information about apartments: owner, location, description, image,...Guest can access to website, search apartments by title, or choose filter options and view apartment detail. But they have to register account  to use other features of website: pay deposit, make an appointment with owner of apartment.
+- Admin and Mod can create posts which include information about apartments: owner, location, description, image,... Admin have more permissions than Mod in user management. Mod can only change their own password while Admin can create, edit and delete any user but themself.
+
+- Guest can access to website, search apartments by title, or choose filter options and view apartment detail. Guest can pay deposit of apartment to be given priority to rent.
 
 ## Environment
 - Laravel 8
