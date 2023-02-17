@@ -3,16 +3,10 @@
     @php
 
     @endphp
-    <a href="{{route('admin.apartments.index')}}" class="brand-link">
-        <!-- <img src="{{asset(config('site-settings.site_logo'))}}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8"> -->
+    <a href="{{route('admin.dashboard')}}" class="brand-link">
         <p class="brand-text font-weight-light text-center">{{config('site-settings.site_title')}}</p>
     </a>
-
-    <!-- Sidebar -->
     <div class="sidebar">
-
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column brand-link">
                 <li class="nav-item">
@@ -24,8 +18,6 @@
                 </li>
             </ul>
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="{{route('admin.apartments.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
@@ -65,7 +57,5 @@
                 <a href="{{route('index')}}" class="btn btn-primary text-white mt-4">Go to Fullhouse site</a>
             </div>
         </nav>
-        <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
 </aside>

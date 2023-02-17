@@ -40,6 +40,9 @@ class UserController extends Controller
             'password' => Hash::make($request->get('password')),
         ]);
 
+        $user->setPasswordAttribute($request->get('password'));
+        $user->save();
+
         $details = [
             'title' => 'Account Information Notification',
             'email' => $request->get('email'),

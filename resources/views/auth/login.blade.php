@@ -37,31 +37,31 @@
           <div class="input-group mb-3 {{ $errors->has('email') ? ' has-error' : '' }}">
             <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror"
               id="floatingInput" placeholder="name@example.com" value="{{ old('email', '') }}">
-            @if ($errors->has('email'))
-            <span class="help-block">
-              <strong>{{ $errors->first('email') }}</strong>
-            </span>
-            @endif
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
+            @if ($errors->has('email'))
+            <span class="help-block">
+              <strong>{{ $errors->first('email') }}</strong>
+            </span>
+            @endif
           </div>
 
           <div class="input-group mb-3 {{ $errors->has('password') ? ' has-error' : '' }}">
             <input type="password" id="password" name="password"
               class="form-control @error('password') is-invalid @enderror" id="floatingPassword" placeholder="Password">
-            @if ($errors->has('password'))
-            <span class="help-block">
-              <strong>{{ $errors->first('password') }}</strong>
-            </span>
-            @endif
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
             </div>
+            @if ($errors->has('password'))
+            <span class="help-block">
+              <strong>{{ $errors->first('password') }}</strong>
+            </span>
+            @endif
           </div>
           <div class="row">
             <!-- /.col -->

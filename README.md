@@ -15,10 +15,12 @@ Fullhouse is a web app which helps people find an apartment to rent.
 - DataTables v1.10.24
 - JSZip v3.6.0
 - pdfmake v0.1.70
+- stripe
 
 ## Installation
 - Pull source code from repo
 - Make .env file from .env.example then fill database information which same as the information in file docker-compose.yml:
+- Database configuration
 ```
 DB_CONNECTION=mysql
 DB_HOST=mysql-db
@@ -26,6 +28,22 @@ DB_PORT=3306
 DB_DATABASE=laravel
 DB_USERNAME=root
 DB_PASSWORD=123456
+```
+- Mail service configuration to send email. You can get your app password, access https://myaccount.google.com/security. The go to section "Signing to Google", choose "App passwords" to make your app password.
+```
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-app-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="your-email@gmail.com"
+MAIL_FROM_NAME="${APP_NAME}"
+```
+- Sripe configure to use online payment
+```
+STRIPE_KEY=your-stripe-key
+STRIPE_SECRET=your-stripe-secret-key
 ```
 - Run commands below:
 ```

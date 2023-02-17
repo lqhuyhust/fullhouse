@@ -3,30 +3,27 @@
 @section('title', 'Dashboard')
 
 @section('css')
-<!-- IonIcons -->
+
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 @endsection
 
 @section('content')
-<!-- Content Header (Page header) -->
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">Dashboard</h1>
-            </div><!-- /.col -->
+            </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard </li>
+                    <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+            </div>
+        </div>
+    </div>
 </div>
-<!-- /.content-header -->
 
-<!-- Main content -->
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -34,67 +31,101 @@
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title"><b>Overview Yearly Sales</b></h3>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="position-relative mb-4">
-                            <canvas id="sales-chart" height="200"></canvas>
-                        </div>
-
-                        <div class="d-flex flex-row justify-content-end">
-                            <span class="mr-2">
-                                <i class="fas fa-square text-primary"></i> Last 12 months
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header border-0">
-                        <div class="d-flex justify-content-between">
-                            <h3 class="card-title"><b>5 Latest Sales</b></h3>
+                            <h3 class="card-title"><b>5 Latest Apartments</b></h3>
+                            <a href="{{route('admin.apartments.index')}}" class="btn btn-primary">Read more</a>
                         </div>
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Customer</th>
-                                    <th>Order Date</th>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Address</th>
                                     <th>Price</th>
-                                    <th>Shipping Fee</th>
-                                    <th>Is Complete</th>
-                                    <th>Action</th>
+                                    <th>Deposit</th>
+                                    <th>Owner Name</th>
+                                    <th>Owner Phone Number</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($apartments as $apartment)
+                                <tr>
+                                    <td>{{$apartment->id}}</td>
+                                    <td>{{$apartment->title}}</td>
+                                    <td>{{$apartment->address}}</td>
+                                    <td>{{$apartment->price}}</td>
+                                    <td>{{$apartment->deposit}}</td>
+                                    <td>{{$apartment->owner_name}}</td>
+                                    <td>{{$apartment->owner_phone_number}}</td>
+                                    <td class="apartment-actions text-right">
+                                        <a class="btn btn-primary btn-sm"
+                                            href="{{route('admin.apartments.view',$apartment->id)}}">
+                                            <i class="fas fa-folder">
+                                            </i>
+                                            View
+                                        </a>
+                                        <a class="btn btn-info btn-sm"
+                                            href="{{route('admin.apartments.edit',$apartment->id)}}">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Edit
+                                        </a>
+                                        <a class="delete btn btn-danger btn-sm" href="#" data="{{$apartment->id}}">
+                                            <i class="fas fa-trash">
+                                            </i>
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title"><b>Top 5 Best Selling Yearly</b></h3>
+                            <h3 class="card-title"><b>5 Latest Users</b></h3>
+                            <a href="{{route('admin.users.index')}}" class="btn btn-primary">Read more</a>
                         </div>
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Top</th>
-                                    <th>Product Name</th>
-                                    <th>Selling Quantity</th>
-                                    <th></th>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($users as $user)
+                                <tr>
+                                    <td>{{$user->id}}</td>
+                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->email}}</td>
+                                    <td>{{$user->phone_number}}</td>
+                                    <td class="user-actions text-right">
+                                        <a class="btn btn-info btn-sm"
+                                            href="{{route('admin.users.edit',$user->id)}}">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Edit
+                                        </a>
+                                        <a class="delete btn btn-danger btn-sm" href="#" data="{{$user->id}}">
+                                            <i class="fas fa-trash">
+                                            </i>
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -102,76 +133,8 @@
             </div>
         </div>
     </div>
-    <!-- /.container-fluid -->
 </div>
-<!-- /.content -->
 @endsection
 @section('js')
-<!-- OPTIONAL SCRIPTS -->
-<script src="{{asset('assets/plugins/chart.js/Chart.min.js')}}"></script>
 
-<script>
-    $((function(){
-    "use strict";
-    var month = [];
-    var revenue = [];
-    for(var i=0;i<12;i++) {
-        month[i]=document.getElementsByName(`month-`+ (11-i).toString())[0].value; 
-        revenue[i]=document.getElementsByName(`revenue-`+ (11-i).toString())[0].value; 
-    }
-    console.log(document.getElementsByName("month-2")[0].value);
-    var e={fontColor:"#495057",fontStyle:"bold"},
-    o="index",t=!0,r=$("#sales-chart"),
-    a=(new Chart(
-    r,
-    {
-    type:"bar",
-    data:{
-    labels:month,
-    datasets:[
-    {
-    backgroundColor:"#007bff",borderColor:"#007bff",
-    data:revenue
-    }
-    ]
-    },
-    options:{
-    maintainAspectRatio:!1,
-    tooltips:{mode:o,intersect:t},
-    hover:{mode:o,intersect:t},
-    legend:{display:!1},
-    scales:{
-    yAxes:[
-    {
-    gridLines:
-    {
-    display:!0,
-    lineWidth:"4px",
-    color:"rgba(0, 0, 0, .2)",
-    zeroLineColor:"transparent"
-    },
-    ticks:$.extend(
-    {
-    beginAtZero:!0,
-    callback:function(e){return e>=1e3&&(e/=1e3,e+="k"),"$"+e}
-    },e
-    )
-    }
-    ],
-    xAxes:[
-    {
-    display:!0,
-    gridLines:{display:!1},
-    ticks:e
-    }
-    ]
-    }
-    }
-    }
-    ),
-    $("#visitors-chart"));
-    
-    }
-    ));
-</script>
 @endsection

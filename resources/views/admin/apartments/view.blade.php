@@ -10,7 +10,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                     <li class="breadcrumb-item active">View Apartment {{$apartment->name}}</li>
                 </ol>
             </div>
@@ -67,16 +67,14 @@
                                     alt="preview image" style="max-height: 500px;">
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <a href="{{route('admin.apartments.index')}}" class="btn btn-secondary">Back</a>
+                                <a href="{{route('admin.apartments.edit', $apartment->id)}}" class="btn btn-primary">Edit Apartment</a>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <a href="{{route('admin.apartments.index')}}" class="btn btn-secondary">Back</a>
-                <a href="{{route('admin.apartments.edit', $apartment->id)}}" class="btn btn-primary">Edit Apartment</a>
             </div>
         </div>
     </div>
