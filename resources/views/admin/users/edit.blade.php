@@ -54,7 +54,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <a href="{{route('admin.users.index')}}" class="btn btn-secondary">Cancel</a>
-                                    <a href="{{route('admin.users.change_password',$user->id)}}" class="btn btn-primary">Change Password</a>
+                                    <a href="{{route('admin.change_password',$user->id)}}" class="btn btn-primary">Change Password</a>
                                     <input type="submit" value="Update user" class="btn btn-success float-right">
                                 </div>
                             </div>

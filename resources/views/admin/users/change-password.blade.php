@@ -29,7 +29,7 @@
                         <h3 class="card-title">Change user password</h3>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{route('admin.users.change_password.save', $user->id)}}"
+                        <form method="post" action="{{route('admin.change_password.save', $user->id)}}"
                             enctype='multipart/form-data'>
                             @csrf
                             @method('PUT')

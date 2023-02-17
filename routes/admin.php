@@ -21,6 +21,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         'dashboard',
         [DashboardController::class, 'dashboard']
     )->name('dashboard');
+    Route::get('/change-password/{id}', [UserController::class, 'changePassword'])->name('change_password');
+    Route::put('/change-password/{id}', [UserController::class, 'savePassword'])->name('change_password.save');
     Route::prefix('apartments')->name('apartments.')->group(function () {
         Route::get('', [ApartmentController::class, 'index'])->name('index');
         Route::get('/create', [ApartmentController::class, 'create'])->name('create');
@@ -30,14 +32,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::get('/view/{id}', [ApartmentController::class, 'view'])->name('view');
         Route::delete('/delete', [ApartmentController::class, 'delete'])->name('delete');
     });
-    Route::prefix('users')->name('users.')->group(function () {
+    Route::prefix('users')->name('users.')->middleware('is_admin')->group(function () {
         Route::get('', [UserController::class, 'index'])->name('index');
         Route::get('/create', [UserController::class, 'create'])->name('create');
         Route::post('/create', [UserController::class, 'store'])->name('create.store');
         Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
         Route::put('/edit/{id}', [UserController::class, 'update'])->name('edit.update');
-        Route::get('/change-password/{id}', [UserController::class, 'changePassword'])->name('change_password');
-        Route::put('/change-password/{id}', [UserController::class, 'savePassword'])->name('change_password.save');
         Route::delete('/delete', [UserController::class, 'delete'])->name('delete');
     });
 });

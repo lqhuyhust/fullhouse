@@ -34,11 +34,21 @@
                         </p>
                     </a>
                 </li>
+                @if ( Auth::user()->is_admin == 1 ) 
                 <li class="nav-item">
                     <a href="{{route('admin.users.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Users
+                        </p>
+                    </a>
+                </li>
+                @endif
+                <li class="nav-item">
+                    <a href="{{route('admin.change_password', Auth::user()->id)}}" class="nav-link">
+                        <i class="nav-icon fas fa-key"></i>
+                        <p>
+                            Change Password
                         </p>
                     </a>
                 </li>
@@ -52,7 +62,7 @@
                 </li>
             </ul>
             <div class="text-center mt-3">
-                <a href="{{route('index')}}" class="btn btn-primary text-white">Go to Fullhouse site</a>
+                <a href="{{route('index')}}" class="btn btn-primary text-white mt-4">Go to Fullhouse site</a>
             </div>
         </nav>
         <!-- /.sidebar-menu -->

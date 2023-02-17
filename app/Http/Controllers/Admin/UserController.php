@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Models\User;
+use App\Mail\UserNotifyMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -32,12 +33,21 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        User::create([
+        $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'phone_number' => $request->get('phone_number'),
             'password' => Hash::make($request->get('password')),
         ]);
+
+        $details = [
+            'title' => 'Account Information Notification',
+            'email' => $request->get('email'),
+            'password' => $request->get('password'),
+            'url' => env('APP_URL') . '/admin/change-password/' . $user->id,
+        ];
+        \Mail::to($user->email)->send(new UserNotifyMail($details));
+
         return redirect(route('admin.users.index'))->with('success', __('Create User successfully!'));
     }
 
@@ -64,10 +74,16 @@ class UserController extends Controller
 
     public function changePassword(Request $request, $id)
     {
+        $actor = Auth::user();
         $user = User::find($id);
+
         if ($user)
         {
-            return view('admin.users.change-password', compact('user'));
+            if ($actor->is_admin ==1 or $actor->id == $id) {
+                return view('admin.users.change-password', compact('user'));
+            } else {
+                redirect(route('admin.dashboard'))->with('error','You don not have admin access.');
+            }
         } else
         {
             abort(404);
