@@ -17,9 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
-Route::get('apartment/{id}', [IndexController::class, 'apartment'])->name('apartment');
-Route::get('login', [LoginController::class, 'login'])->name('login');
-Route::post('login', [LoginController::class, 'authenticate'])->name('login.authenticate');
-Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('payment/{id}', [StripePaymentController::class, 'payment'])->name('payment');
-Route::post('payment/{id}', [StripePaymentController::class, 'execute'])->name('payment.execute');
+Route::view('/{any}', 'welcome')
+    ->where('any', '.*');

@@ -17,18 +17,15 @@ class UserController extends Controller
     public function __construct()
     {
 
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index(Request $request)
     {
-        $users = User::paginate(config('site-settings.admin_paginate'));
-        return view('admin.users.index', compact('users'));
-    }
-
-    public function create(Request $request)
-    {
-        return view('admin.users.create');
+        $users = User::all();
+        return response()->json([
+            'users' => $users
+        ]);
     }
 
     public function store(UserRequest $request)
@@ -51,45 +48,55 @@ class UserController extends Controller
         ];
         \Mail::to($user->email)->send(new UserNotifyMail($details));
 
-        return redirect(route('admin.users.index'))->with('success', __('Create User successfully!'));
+        return response()->json([
+            'data' => [
+                'name' => $user->name,
+                'email' => $user->email,
+            ],
+            'status_code' => 200,
+            'message' => 'Create new user successfully!'
+        ]);
     }
 
-    public function edit(Request $request, $id)
+    public function getOneUser(Request $request, $id)
     {
         $user = User::find($id);
         if ($user)
         {
-            return view('admin.users.edit', compact('user'));
+            return response()->json([
+                'data' => $user,
+                'status_code' => 200,
+                'message' => 'Get user information successfully!'
+            ]);
         } else
         {
-            abort(404);
+            return response()->json([
+                'data' => [],
+                'status_code' => 404,
+                'message' => 'User not found!'
+            ]);
         }
     }
 
     public function update(UserUpdateRequest $request, $id)
     {
-        User::where('id', $id)->update([
-            'name' => $request->get('name'),
-            'phone_number' => $request->get('phone_number'),
-        ]);
-        return redirect(route('admin.users.index'))->with('success', __('Update User successfully!'));
-    }
-
-    public function changePassword(Request $request, $id)
-    {
-        $actor = Auth::user();
-        $user = User::find($id);
-
-        if ($user)
-        {
-            if ($actor->is_admin ==1 or $actor->id == $id) {
-                return view('admin.users.change-password', compact('user'));
-            } else {
-                redirect(route('admin.dashboard'))->with('error','You don not have admin access.');
-            }
-        } else
-        {
-            abort(404);
+        $user = User::where('id', $id);
+        if ($user) {
+            $user->update([
+                'name' => $request->get('name'),
+                'phone_number' => $request->get('phone_number'),
+            ]);
+            return response()->json([
+                'data' => $user,
+                'status_code' => 200,
+                'message' => 'Update user successfully!'
+            ]);
+        } else {
+            return response()->json([
+                'data' => [],
+                'status_code' => 404,
+                'message' => 'User not found!'
+            ]);
         }
     }
 
@@ -101,34 +108,49 @@ class UserController extends Controller
 
         if (!(Hash::check($currentPassword, $user->password)))
         {
-            return redirect()->back()->withErrors(['current_password' => __('Your current password does not matches with the password.')]);
+            return response()->json([
+                'data' => [],
+                'status_code' => 400,
+                'message' => 'Your current password does not matches with the password.'
+            ]);
         }
 
         if (strcmp($currentPassword, $newPassword)==0) 
         {
-            return redirect()->back()->withErrors(['new_password' => __('New Password cannot be same as your current password.')]);
+            return response()->json([
+                'data' => [],
+                'status_code' => 400,
+                'message' => 'New Password cannot be same as your current password.'
+            ]);
         }
 
         $user->setPasswordAttribute($newPassword);
         $user->save();
 
-        return redirect(route('admin.users.index'))->with('success', __('Change user password successfully!'));
+        return response()->json([
+            'data' => [],
+            'status_code' => 200,
+            'message' => 'New Password cannot be same as your current password.'
+        ]);
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request, $id)
     {
-        if (strcmp(Auth::user()->id, $request->input('user_id')) == 0)
-        {
-            return redirect()->back()->with('error', __('You can not delete yourself!'));
-        }
-        $user = User::find($request->input('user_id'));
+        $user = User::find($id);
         if ($user)
         {
             $user->delete();
-            return redirect(route('admin.users.index'))->with('success', __('Delete user successfully!'));
-        } else
-        {
-            return redirect(route('admin.users.index'))->with('info', __('User not found!'));
+            return response()->json([
+                'data' => [],
+                'status_code' => 200,
+                'message' => 'Delete user successfully!'
+            ]);
+        } else {
+             return response()->json([
+                'data' => [],
+                'status_code' => 404,
+                'message' => 'User not found!'
+            ]);
         }
     }
 }

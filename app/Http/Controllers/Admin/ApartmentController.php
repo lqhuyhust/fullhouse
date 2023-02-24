@@ -13,18 +13,15 @@ class ApartmentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index(Request $request)
     {
-        $apartments = Apartment::paginate(config('site-settings.admin_paginate'));
-        return view('admin.apartments.index', compact('apartments'));
-    }
-
-    public function create(Request $request)
-    {
-        return view('admin.apartments.create');
+        $apartments = Apartment::all();
+        return response()->json([
+            'apartments' => $apartments
+        ]);
     }
 
     public function store(ApartmentRequest $request)
@@ -37,76 +34,100 @@ class ApartmentController extends Controller
                 'required' => 'You need upload description image for the apartment.',
             ]
         );
-        $data = $request->except('_token');
         $path = $this->_upload($request);
-        if($path)
-        {
-            $data['images'] = $path;
-        } else {
-            return redirect()->back()->withErrors([
-                'images' => 'You need upload description image',
-            ]);
-        }
 
-        $data = array_filter($data, 'strlen');
-        Apartment::create($data);
-        return redirect(route('admin.apartments.index'))->with('success', __('Create Apartment successfully!'));
+        $apartment = new Apartment();
+        $apartment->title = $request->title;
+        $apartment->address = $request->address;
+        $apartment->price = $request->price;
+        $apartment->deposit = $request->deposit;
+        $apartment->description = $request->description;
+        $apartment->area = $request->area;
+        $apartment->owner_name = $request->owner_name;
+        $apartment->owner_phone_number = $request->owner_phone_number;
+        $apartment->owner_email = $request->owner_email;
+        $apartment->images = $path;
+        $apartment->status = config('site-settings.statuses')['AVAILABLE'];
+        $apartment->save();
+
+        return response()->json([
+            'data' => $apartment,
+            'status_code' => 200,
+            'message' => 'Create new apartment successfully!'
+        ]);
     }
 
-    public function edit(Request $request, $id)
+    public function getOneApartment(Request $request, $id)
     {
-        $apartment = Apartment::find($id);
         $statuses = Status::all();
-        if ($apartment)
-        {
-            return view('admin.apartments.edit', compact('apartment', 'statuses'));
-        } else
-        {
-            abort(404);
+        $apartment = Apartment::find($id);
+
+        if ($apartment) {
+            return response()->json([
+                'data' => [
+                    'apartment' => $apartment,
+                    'statuses' => $statuses
+                ],
+                'status_code' => 200,
+                'message' => ''
+            ]);
+        } else {
+            return response()->json([
+                'data' => [],
+                'status_code' => 404,
+                'message' => 'Apartment not found!'
+            ]);
         }
     }
 
     public function update(ApartmentRequest $request, $id)
     {
-        $data = $request->except('_method', '_token');
+        $apartment = Apartment::find($id);
         if(isset($data['images']))
         {
             $path = $this->_upload($request);
-            if ($path) {
-                $data['images'] = $path;
+            if ($path != '') {
+                $apartment->images = $path;
             }
-        } else {
-            $data['images'] = $data['old_images'];
         }
 
-        unset($data['old_images']);
-        $data = array_filter($data, 'strlen');
-        Apartment::where('id', $id)->update($data);
-        return redirect(route('admin.apartments.index'))->with('success', __('Update Apartment successfully!'));
+        $apartment->title = $request->title;
+        $apartment->address = $request->address;
+        $apartment->price = $request->price;
+        $apartment->deposit = $request->deposit;
+        $apartment->description = $request->description;
+        $apartment->area = $request->area;
+        $apartment->owner_name = $request->owner_name;
+        $apartment->owner_phone_number = $request->owner_phone_number;
+        $apartment->owner_email = $request->owner_email;
+        $apartment->status = 1;
+        $apartment->save();
+
+        return response()->json([
+            'data' => $apartment,
+            'status_code' => 200,
+            'message' => 'Update apartment successfully!'
+        ]);
     }
 
-    public function delete(Request $request)
-    {
-        $apartment = Apartment::find($request->input('apartment_id'));
-        if ($apartment)
-        {
-            $apartment->delete();
-            return redirect(route('admin.apartments.index'))->with('success', __('Delete Apartment successfully!'));
-        } else
-        {
-            return redirect(route('admin.apartments.index'))->with('info', __('Apartment not found!'));
-        }
-    }
-
-    public function view(Request $request, $id)
+    public function delete(Request $request, $id)
     {
         $apartment = Apartment::find($id);
         if ($apartment)
         {
-            return view('admin.apartments.view', compact('apartment'));
+            $apartment->delete();
+            return response()->json([
+                'data' => '',
+                'status_code' => 200,
+                'message' => 'Delete Successfully!'
+            ]);
         } else
         {
-            abort(404);
+            return response()->json([
+                'data' => '',
+                'status_code' => 404,
+                'message' => 'The apartment was removed before!'
+            ], 404);
         }
     }
 
@@ -120,6 +141,6 @@ class ApartmentController extends Controller
             );
             return $path;
         }
-        return false;
+        return '';
     }
 }

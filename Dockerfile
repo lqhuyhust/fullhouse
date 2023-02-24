@@ -53,3 +53,17 @@ ARG uid
 RUN useradd -G www-data,root -u $uid -d /home/devuser devuser
 RUN mkdir -p /home/devuser/.composer && \
     chown -R devuser:devuser /home/devuser
+
+COPY package.json ./
+COPY . .
+
+RUN apt-get update && apt-get install curl
+RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
+RUN sudo apt -y install nodejs
+RUN npm install -g npm@9.5.0
+RUN npm install
+RUN npm install -D webpack-cli
+RUN npm install --save-dev webpack@5.58.2
+RUN npm audit fix --force
+RUN npm install vue-loader@^15.9.8 --save-dev --legacy-peer-deps
+RUN npm run dev

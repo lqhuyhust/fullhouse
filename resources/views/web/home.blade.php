@@ -48,6 +48,9 @@
         </div>
     </div>
 </div>
+<div id="app">
+    <mainapp></mainapp>
+</div>
 @endsection
 
 @section('content')
